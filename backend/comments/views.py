@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -8,14 +7,30 @@ from .serializers import CommentsSerializer
 
 # Create your views here.
 
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def get_all_comments(request):
+#     comments = Comments.objects.all()
+#     serializer = CommentsSerializer(comments, many=True)
+#     return Response(serializer.data)
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_all_comments(request):
-    comments = Comments.objects.all()
-    serializer = CommentsSerializer(comments, many=True)
-    return Response(serializer.data)
 
-@api_view(['GET', 'POST'])
+    
+    
+    if request.method =='GET':
+
+        video_id_param = request.query_params.get('video_id')
+        queryset = Comments.objects.all()
+        if video_id_param:
+            queryset = queryset.filter(video_id=video_id_param)
+        
+        serializer = CommentsSerializer(queryset, many = True)
+        return Response(serializer.data)
+
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def user_comments(request):
     print(
