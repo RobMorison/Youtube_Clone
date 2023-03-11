@@ -7,30 +7,23 @@ from .serializers import CommentsSerializer
 
 # Create your views here.
 
-# @api_view(['GET'])
-# @permission_classes([AllowAny])
-# def get_all_comments(request):
-#     comments = Comments.objects.all()
-#     serializer = CommentsSerializer(comments, many=True)
-#     return Response(serializer.data)
-
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_all_comments(request):
 
-    
     
     if request.method =='GET':
 
         video_id_param = request.query_params.get('video_id')
         queryset = Comments.objects.all()
         if video_id_param:
-            queryset = queryset.filter(video_id=video_id_param)
+            queryset = queryset.filter(video_id=video_id_param) 
+            # single under core if it is not a PK double underscore if it is a PK
         
         serializer = CommentsSerializer(queryset, many = True)
         return Response(serializer.data)
 
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def user_comments(request):
     print(
