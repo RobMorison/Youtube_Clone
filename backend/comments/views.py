@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
 from .models import Comments
 from .serializers import CommentsSerializer
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -38,3 +39,13 @@ def user_comments(request):
         comments = Comments.objects.filter(user_id=request.user.id)
         serializer = CommentsSerializer(comments, many=True)
         return Response(serializer.data)
+    
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def put_comment(request, pk):
+    comment = get_object_or_404(Comments, pk=pk)
+    if request.method =='PUT':
+        serializer = CommentsSerializer(comment, data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data)
