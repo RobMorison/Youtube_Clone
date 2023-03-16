@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import AddCarPage from "./pages/AddCarPage/AddCarPage";
+import SearchPage from "./pages/SearchPage/SearchPage";
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -28,6 +29,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route 
