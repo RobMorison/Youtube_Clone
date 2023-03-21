@@ -3,44 +3,28 @@ import axios from 'axios'
 import SearchBar from '../../components/SearchBar/SearchBar';
 
 
+
 function SearchPage(){
-    const[search, setSearch] = useState(['']);
+    const[search, setSearch] = useState([]);
 
     useEffect(() => {
         getVideos();
     }, []);
 
     async function getVideos(){
-    //     const options = {
-    //         method:'GET',
-    //         url: 'https://www.googleapis.com/youtube/v3/search?q=football',
-    //         headers: {
-    //             key: 'AIzaSyAaI70HaiwLTfH7OCLlYHIqBrDnILSfrvk'
-    //         }
-    //     };
-
-    //     axios.request(options).then(function (response){
-    //         console.log('response from fetch: ', response.data.results);
-    //     }).catch(function(error){
-    //         console.error(error);
-    //     });
-        // const response = await axios.get('https://www.googleapis.com/youtube/v3/search?q=football&key=AIzaSyAaI70HaiwLTfH7OCLlYHIqBrDnILSfrvk&part');
+   
+        await axios
+        .get('https://www.googleapis.com/youtube/v3/search?q=star+wars&key=AIzaSyAaI70HaiwLTfH7OCLlYHIqBrDnILSfrvk&part=snippet&type=video&maxResults=5')
+        .then(response => setSearch(response.data.items))
+        .catch(error =>console.error(error));
         console.log('state change function test')
-        setSearch('function test')
-
-        // setSearch(response)
-        
+        // setSearch('function test')        
     };
 
     return(
         <>
         <div><SearchBar/></div>
-        <div>{search}</div>
-        </>
-        // <><div><iframe id='ytplayer' type='text/html' title='search' width={640} height={360}
-        // src={search} frameborder={0}>
-        //     <SearchPage/>
-        // </iframe></div></>
+        <div>{search[0]?.snippet.title}</div></>
     );
     };
 
