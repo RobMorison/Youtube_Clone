@@ -32,11 +32,16 @@ function VideoPage() {
         console.log('pulled comments')
     }
 
+    function addNewComment(comment){
+        let tempComment = [...comments, comment];
+        setComments(tempComment);
+    }
+
     return (
         <>
         <SearchBar/>      
         <Video_Player video_id = {video_id} />
-        <CommentForm/> <button onClick = {()=> GetComments()}>Get Comments</button>
+        <CommentForm addNewCommentProperty = {addNewComment}/>
         <CommentMapper comments = {comments}/>
 
         </>)
