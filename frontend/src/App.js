@@ -13,6 +13,9 @@ import VideoPage from "./pages/VideoPage/VideoPage"
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
+import Comment from "./components/Comment/Comment";
+import CommentMapper from "./components/CommentMapper/CommentMapper";
+import Video_Player from "./components/VideoPlayer/Video_Player";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
