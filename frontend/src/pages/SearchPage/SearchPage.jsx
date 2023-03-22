@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import SearchBar from '../../components/SearchBar/SearchBar';
-import { DATA } from '../../localData'
+import { DATA } from '../../localData';
+
+
 
 
 
@@ -26,9 +28,11 @@ function SearchPage(){
         <div><SearchBar/>
         <div>{search &&
             search.map((search) => {
-                return <li key={search.id.videoId}>{search.snippet.title}</li>;
+                return <li key={search.id.videoId}>{search.snippet.thumbnails.default.url}
+                {search.snippet.title}</li>;
             })}</div>
-        </div></>
+        </div>
+        </>
     );
     };
 
