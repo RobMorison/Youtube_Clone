@@ -22,9 +22,7 @@ const CommentForm = (props) => {
             <ul>
                 <label>Comment</label>
                 <input type='text' value={text} onChange={(event) => setText(event.target.value)}/>
-            </ul>
-            <ul className= 'button'>
-                <button type='submit'>Add Comment</button>
+                <button className= 'button' type='submit'>Add Comment</button>
             </ul>
         </form>
      );

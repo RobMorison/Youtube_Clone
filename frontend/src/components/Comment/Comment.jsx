@@ -1,10 +1,8 @@
 const Comment = ({comment}) => {
     return ( 
-        <><li>
-            {comment.user_id}
-        </li><li>
+            <><ul>
                 {comment.text}
-            </li></>    
+            </ul></>    
 
         );
 }

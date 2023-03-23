@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Comment from '../Comment/Comment';
-import CommentForm from '../CommentForm/CommentForm';
+
 
 const CommentMapper = ({comments}) => {
 
@@ -8,7 +8,9 @@ const CommentMapper = ({comments}) => {
     
     return (
         <ul>
+            <li>
             {comments.map(comment => <Comment comment={comment}/>)}
+            </li>
         </ul>
     )
       
