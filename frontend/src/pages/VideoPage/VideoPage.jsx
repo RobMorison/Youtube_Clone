@@ -5,44 +5,57 @@ import { DATA } from '../../localData';
 import Video_Player from '../../components/VideoPlayer/Video_Player';
 import CommentMapper from '../../components/CommentMapper/CommentMapper';
 import CommentForm from '../../components/CommentForm/CommentForm';
+import { useParams } from 'react-router-dom';
+import useAuth from "../../hooks/useAuth";
+
 
 // get single video id
 function VideoPage() {
-    const [videos, setVideos] = useState(DATA);
+    const [videos, setVideos] = useState('');
     const [comments, setComments] = useState([]);
-    const [video_id, setVideo_Id] = useState('4cul91x5F1U');
+    const { videoId } = useParams()
+    const [video_id, setVideo_Id] = useState(videoId);
+    const [user, token] = useAuth();
+
+    // useParams to grab video id and send to the Video_Player component
 
     useEffect(() => {
-        // relatedVideo();
+        relatedVideo();
         GetComments()
     }, []);
 
     async function relatedVideo() {
         await axios
-            .get('https://www.googleapis.com/youtube/v3/search?relatedToVideoId=_F6YBwIPzmk&type=video&key=AIzaSyAaI70HaiwLTfH7OCLlYHIqBrDnILSfrvk')
+            .get(`https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${video_id}&type=video&key=AIzaSyAaI70HaiwLTfH7OCLlYHIqBrDnILSfrvk`)
             .then(response => setVideos(response.data.items))
             .catch(error => console.error(error));
         console.log('related video', videos)
     }
 
-    async function GetComments(){
+    async function GetComments() {
         await axios
             .get(`http://127.0.0.1:8000/api/comments?video_id=${video_id}`)
-            .then(response =>(setComments(response.data)))
+            .then(response => (setComments(response.data)))
         console.log('pulled comments')
     }
 
-    function addNewComment(comment){
-        let tempComment = [...comments, comment];
-        setComments(tempComment);
+    async function addNewComment(comment) {
+        await axios
+            .post(`http://127.0.0.1:8000/api/comments/post/${video_id}/`, comment,
+                {
+                    headers: {
+                        Authorization: "Bearer " + token,
+                    },
+                })
+            .then(() => GetComments())
     }
 
     return (
         <>
-        <SearchBar/>      
-        <Video_Player video_id = {video_id} />
-        <CommentForm addNewCommentProperty = {addNewComment}/>
-        <CommentMapper comments = {comments}/>
+            <SearchBar />
+            <Video_Player video_id={video_id} />
+            <CommentForm addNewCommentProperty={addNewComment} video_id={video_id}/>
+            <CommentMapper comments={comments} />
 
         </>)
 

@@ -9,6 +9,9 @@ const CommentForm = (props) => {
         event.preventDefault();
         let newComment = {
 
+            video_id: props.video_id,
+            like: 0,
+            dislikes: 0,
             text: text,
 
         };

@@ -2,13 +2,13 @@ import React from 'react';
 import SearchPage from '../../pages/SearchPage/SearchPage';
 import VideoList from '../VideoList/VideoList';
 
-const Video_Player = ({singleVideo}) => {
+const Video_Player = ({video_id}) => {
     
-    console.log('video_player', singleVideo)
+    console.log('video_player', video_id)
   
     
     return ( <div><iframe id="ytplayer" type="text/html" width="640" height="360"
-    src={`https://www.youtube.com/embed/${singleVideo}`}
+    src={`https://www.youtube.com/embed/${video_id}`}
     ></iframe></div> );
 
 

@@ -5,32 +5,31 @@ import { DATA } from '../../localData';
 import Video_Player from '../../components/VideoPlayer/Video_Player';
 import VideoList from '../../components/VideoList/VideoList';
 
-
+// handleClick function that sends the videoId to VideoPage using the "useNavigate"
 
 
 function SearchPage(){
-    const[search, setSearch] = useState(DATA);
-    console.log(search)
+    const[videos, setVideos] = useState([]);
+    console.log('search page', videos)
 
     useEffect(() => {
-        // getVideos();
+        getVideos();
     }, []);
 
     async function getVideos(){
    
         await axios
         .get('https://www.googleapis.com/youtube/v3/search?q=star+wars&key=AIzaSyAaI70HaiwLTfH7OCLlYHIqBrDnILSfrvk&part=snippet&type=video&maxResults=5')
-        .then(response => setSearch(response.data.items))
+        .then(response => setVideos(response.data.items))
         .catch(error =>console.error(error));
-        console.log(search)        
+        console.log('getvideo' , videos)        
     };
 
 
     return(
         <>
         <SearchBar/>
-        <VideoList video_ids={search}/>
-        <Video_Player video_ids={search}/>
+        <VideoList videos={videos}/>
         </>
     );
     };

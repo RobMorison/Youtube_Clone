@@ -19,7 +19,7 @@ import Footer from "./components/Footer/Footer";
 import PrivateRoute from "./utils/PrivateRoute";
 import Video_Player from "./components/VideoPlayer/Video_Player";
 
-
+// Render "VideoPage" when matching the "/video/video_Id" URL
 function App() {
   return (
     <div>
@@ -34,7 +34,7 @@ function App() {
           }
         /> */}
         <Route path= "/" element={<SearchPage />} />
-        <Route path= "/video/:video_Id" element={<Video_Player/>}/>
+        <Route path= "/video/:videoId" element={<VideoPage/>}/>
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/video" 
