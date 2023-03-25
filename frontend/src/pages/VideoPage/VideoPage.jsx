@@ -7,6 +7,7 @@ import CommentMapper from '../../components/CommentMapper/CommentMapper';
 import CommentForm from '../../components/CommentForm/CommentForm';
 import { useParams } from 'react-router-dom';
 import useAuth from "../../hooks/useAuth";
+import RelatedVideos from '../../components/RelatedVideos/RelatedVideos';
 
 
 // get single video id
@@ -26,7 +27,7 @@ function VideoPage() {
 
     async function relatedVideo() {
         await axios
-            .get(`https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${video_id}&type=video&key=AIzaSyAaI70HaiwLTfH7OCLlYHIqBrDnILSfrvk`)
+            .get(`https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${videoId}&type=video&key=AIzaSyAaI70HaiwLTfH7OCLlYHIqBrDnILSfrvk`)
             .then(response => setVideos(response.data.items))
             .catch(error => console.error(error));
         console.log('related video', videos)
@@ -53,9 +54,10 @@ function VideoPage() {
     return (
         <>
             <SearchBar />
-            <Video_Player video_id={video_id} />
+            <Video_Player video_id={video_id} related_video={relatedVideo}/>
             <CommentForm addNewCommentProperty={addNewComment} video_id={video_id}/>
             <CommentMapper comments={comments} />
+            <RelatedVideos related_videos={relatedVideo}/>
 
         </>)
 
